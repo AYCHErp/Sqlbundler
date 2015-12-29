@@ -1,0 +1,7 @@
+bin
+obj
+*.pdb
+*.exe
+*.suo
+*.user
+src/data
