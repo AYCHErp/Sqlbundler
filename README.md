@@ -4,7 +4,7 @@ Create a `.sqlbundle` file (`yaml` format) on your db directory.
 
 ```yaml
 - script-directory : db/1.x/1.0/src
-- output-directory:db/1.x/1.0
+- output-directory : db/1.x/1.0
 ```
 
 
