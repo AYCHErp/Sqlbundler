@@ -9,6 +9,8 @@ namespace SqlBundler.Helpers
 {
     public static class Processor
     {
+        const string SOURCE_CANDIDATE = "src";
+
         public static Collection<SQLBundle> Process(string root, BundlerModel model)
         {
             if (model == null)
@@ -26,9 +28,13 @@ namespace SqlBundler.Helpers
                     script.Append(Environment.NewLine);
                 }
 
+                var directories = Path.GetFullPath(root).Split(Path.DirectorySeparatorChar);
+                var pos = directories.TakeWhile(x => x.ToLower() != SOURCE_CANDIDATE).Count();
+                var start = string.Join(Path.DirectorySeparatorChar.ToString(), directories.Skip(pos));
+                                
                 Console.WriteLine(@"Adding {0} to bundle", fileName);
                 script.Append("-->-->-- ");
-                script.Append(Path.GetFullPath(fileName).Replace(root, "").Replace("\\", "/"));
+                script.Append((start + Path.GetFullPath(fileName).Replace(Path.GetFullPath(root), "")).Replace("\\", "/"));
                 script.Append(" --<--<--");
 
                 script.Append(Environment.NewLine);
